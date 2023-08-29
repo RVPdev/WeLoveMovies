@@ -1,6 +1,6 @@
 const service = require("./movies.service");
 
-async function List(req, res, next) {
+async function list(req, res, next) {
   const { is_showing } = req.query;
 
   if (is_showing) {
@@ -20,6 +20,17 @@ async function List(req, res, next) {
   }
 }
 
+async function read(req, res, next) {
+    const {movieId} = req.params;
+    try{
+        const data = await service.readId(movieId);
+        res.json({data: data});
+    } catch(err) {
+        next(err)
+    }
+}
+
 module.exports = {
-  List,
+  list,
+  read,
 };

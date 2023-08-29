@@ -11,7 +11,12 @@ function readIsShowing() {
     .where("mt.is_showing", true);
 }
 
+function readId(movieId) {
+  return knex("movies as m").select("*").where("m.movie_id", movieId).first();
+}
+
 module.exports = {
   list,
   readIsShowing,
+  readId,
 };
