@@ -1,4 +1,5 @@
 const service = require("./movies.service");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 async function list(req, res, next) {
   const { is_showing } = req.query;
@@ -24,13 +25,17 @@ async function read(req, res, next) {
     const {movieId} = req.params;
     try{
         const data = await service.readId(movieId);
-        res.json({data: data});
+        if (data) {  // If data exists, send it back
+            res.json({ data: data });
+        } else {  // If no data exists (i.e., ID is incorrect)
+            res.status(404).json({ error: "Movie cannot be found." });
+        }
     } catch(err) {
         next(err)
     }
 }
 
 module.exports = {
-  list,
-  read,
+  list: asyncErrorBoundary(list),
+  read: asyncErrorBoundary(read),
 };

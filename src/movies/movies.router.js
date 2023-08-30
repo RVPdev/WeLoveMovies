@@ -3,8 +3,7 @@ const controller = require("./movies.controller");
 
 router.route('/:movieId').get(controller.read);
 
-router.route('/')
-    .get(controller.list);
+router.route('/').get(controller.list);
 
 
 
