@@ -12,16 +12,26 @@ const reduceMovies = reduceProp("theater_id", {
   created_at: ["movies", null, "created_at"],
   updated_at: ["movies", null, "updated_at"],
   is_showing: ["movies", null, "is_showing"],
-//   theater_id: ["movies", null, "theater_id"],
+  //   theater_id: ["movies", null, "theater_id"],
 });
 
 async function list(req, res, next) {
-  try {
-    const data = await service.listTheatersWithMovies();
-    const reducedData = reduceMovies(data);
-    res.json({ data: reducedData });
-  } catch (err) {
-    next(err);
+  const { movieId } = req.params;
+  if (movieId) {
+    try {
+      const data = await service.listTheatersWithMoviesId(movieId);
+      res.json({ data: data });
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    try {
+      const data = await service.listTheatersWithMovies();
+      const reducedData = reduceMovies(data);
+      res.json({ data: reducedData });
+    } catch (err) {
+      next(err);
+    }
   }
 }
 

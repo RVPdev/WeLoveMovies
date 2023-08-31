@@ -13,5 +13,7 @@ app.use('/movies', movieRouter);
 
 app.use('/theaters', theatersRouter);
 
+app.use("/reviews", reviewsRouter);
+
 
 module.exports = app;
