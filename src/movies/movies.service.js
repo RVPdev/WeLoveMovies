@@ -8,7 +8,9 @@ function readIsShowing() {
   return knex("movies as m")
     .select("*")
     .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
-    .where("mt.is_showing", true);
+    .where("mt.is_showing", true)
+    .groupBy("m.movie_id")
+    .orderBy("m.movie_id");
 }
 
 function readId(movieId) {
