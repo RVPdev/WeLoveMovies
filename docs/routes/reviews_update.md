@@ -42,7 +42,7 @@ The response should include the entire review record with the newly patched cont
   }
 }
 ```
-
+x.critic
 **Hint:** Since the test requires a PUT method, you can update the review in the following manner:
 
 ```js
